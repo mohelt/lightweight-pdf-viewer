@@ -78,13 +78,31 @@ class PDFViewer:
         # configuring the vertical scrollbar to the canvas
         self.scrollx.configure(command=self.output.xview)
         # loading the button icons
+        self.scale = 1.0
+        self.zoom_icon = PhotoImage(file='zoom.png')
+        self.zoomout_icon = PhotoImage(file='zoomout.png')
+        
         self.uparrow_icon = PhotoImage(file='uparrow.png')
         self.downarrow_icon = PhotoImage(file='downarrow.png')
         # resizing the icons to fit on buttons
+        self.zoomarrow = self.zoom_icon.subsample(3, 3)
+        self.zoomoutarrow = self.zoomout_icon.subsample(3, 3)
+        
         self.uparrow = self.uparrow_icon.subsample(3, 3)
         self.downarrow = self.downarrow_icon.subsample(3, 3)
+        
+        # creating an zoom button with an icon
+        self.zoombutton = ttk.Button(self.bottom_frame, image=self.zoomarrow, command=self.zoom_page)
+        self.zoomoutbutton = ttk.Button(self.bottom_frame, image=self.zoomoutarrow, command=self.zoom_out_page)
+        
+        
+        self.zoombutton.grid(row=0, column=6, padx=5)
+        self.zoomoutbutton.grid(row=0, column=5, padx=5)
+        # adding the button
         # creating an up button with an icon
         self.upbutton = ttk.Button(self.bottom_frame, image=self.uparrow, command=self.previous_page)
+        self.upbutton.grid(row=0, column=5, padx=8, pady=8)
+       
         # adding the button
         self.upbutton.grid(row=0, column=1, padx=(270, 5), pady=8)
         # creating a down button with an icon
@@ -165,7 +183,19 @@ class PDFViewer:
                 self.current_page -= 1
                 # displaying the previous page
                 self.display_page()
-
+                
+    # function for displaying the zoom            
+    def zoom_page(self):
+        # increase scale by 20%
+        self.scale *= 1.2  
+        self.miner.zoom = self.scale
+        self.display_page()
+        
+    def zoom_out_page(self):
+        # decrease scale by 20%
+        self.scale /= 1.2  
+        self.miner.zoom = self.scale
+        self.display_page()
   
 # creating the root winding using Tk() class
 root = Tk()
