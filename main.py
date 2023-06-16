@@ -33,7 +33,47 @@ class PDFViewer:
         # adding a two buttons to the sub menus
         self.filemenu.add_command(label="Open File")
         self.filemenu.add_command(label="Exit")
-    
+        
+                # creating the top frame
+        self.top_frame = ttk.Frame(self.master, width=700, height=900)
+        # placing the frame using inside main window using grid()
+        self.top_frame.grid(row=0, column=0)
+        # the frame will not propagate
+        self.top_frame.grid_propagate(False)
+        # creating the bottom frame
+        self.bottom_frame = ttk.Frame(self.master, width=700, height=900)
+        # placing the frame using inside main window using grid()
+        self.bottom_frame.grid(row=1, column=0)
+        # the frame will not propagate
+        self.bottom_frame.grid_propagate(False)
+        
+        # creating a vertical scrollbar
+        self.scrolly = Scrollbar(self.top_frame, orient=VERTICAL)
+        # adding the scrollbar
+        self.scrolly.grid(row=0, column=1, sticky=(N,S))
+        # creating a horizontal scrollbar
+        self.scrollx = Scrollbar(self.top_frame, orient=HORIZONTAL)
+        # adding the scrollbar
+        self.scrollx.grid(row=1, column=0, sticky=(W, E))
+        
+               # creating the canvas for display the PDF pages
+        self.output = Canvas(self.top_frame, bg='#ECE8F3', width=670, height=870)
+        # inserting both vertical and horizontal scrollbars to the canvas
+        self.output.configure(yscrollcommand=self.scrolly.set, xscrollcommand=self.scrollx.set)
+        # adding the canvas
+        self.output.grid(row=0, column=0)
+        # configuring the horizontal scrollbar to the canvas
+        self.scrolly.configure(command=self.output.yview)
+        # configuring the vertical scrollbar to the canvas
+        self.scrollx.configure(command=self.output.xview)
+                # creating a vertical scrollbar
+        self.scrolly = Scrollbar(self.top_frame, orient=VERTICAL)
+        # adding the scrollbar
+        self.scrolly.grid(row=0, column=1, sticky=(N,S))
+        # creating a horizontal scrollbar
+        self.scrollx = Scrollbar(self.top_frame, orient=HORIZONTAL)
+        # adding the scrollbar
+        self.scrollx.grid(row=1, column=0, sticky=(W, E))
 # creating the root window using Tk() class
 root = Tk()
 # instantiating/creating object app for class PDFViewer
