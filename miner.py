@@ -5,6 +5,8 @@ import fitz
 # importing PhotoImage from tkinter
 from tkinter import PhotoImage
 
+
+
 class PDFMiner:
     def __init__(self, filepath):
         # creating the file path
@@ -22,7 +24,7 @@ class PDFMiner:
         # zooming the page
         self.zoom = zoomdict[width]
         
-        # this will get the metadata from the document like 
+    # this will get the metadata from the document like 
     # author, name of document, number of pages  
     def get_metadata(self):
         # getting metadata from the open PDF document
@@ -32,7 +34,7 @@ class PDFMiner:
         # returning the metadata and the numPages
         return metadata, numPages
     
-        # the function for getting the page
+    # the function for getting the page
     def get_page(self, page_num):
         # loading the page
         page = self.pdf.load_page(page_num)
@@ -52,7 +54,8 @@ class PDFMiner:
         # returning the image data
         return PhotoImage(data=imgdata)
     
-        # function to get text from the current page
+    
+    # function to get text from the current page
     def get_text(self, page_num):
         # loading the page
         page = self.pdf.load_page(page_num)
